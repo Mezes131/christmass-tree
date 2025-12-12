@@ -50,8 +50,6 @@ function TreeControls({
   onGroundToggle,
   onMoonSkyToggle
 }) {
-  const [isExpanded, setIsExpanded] = useState(true)
-
   const lightModes = [
     { value: 'static', label: 'Static', icon: faLightbulb },
     { value: 'twinkle', label: 'Twinkle', icon: faStar },
@@ -69,18 +67,8 @@ function TreeControls({
   ]
 
   return (
-    <div className={`tree-controls ${isExpanded ? 'expanded' : 'collapsed'}`}>
-      {/* Expand/collapse button */}
-      <button 
-        className="controls-toggle"
-        onClick={() => setIsExpanded(!isExpanded)}
-        aria-label={isExpanded ? 'Collapse controls' : 'Expand controls'}
-      >
-        {isExpanded ? '▼' : '▲'} Controls
-      </button>
-
-      {isExpanded && (
-        <div className="controls-content">
+    <div className="tree-controls-integrated">
+      <div className="controls-content">
           {/* On/Off Section */}
           <div className="control-section">
             <h3 className="control-title">Lighting</h3>
@@ -348,8 +336,7 @@ function TreeControls({
               </label>
             </div>
           </div>
-        </div>
-      )}
+      </div>
     </div>
   )
 }

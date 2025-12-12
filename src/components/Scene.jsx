@@ -29,18 +29,27 @@ function Scene({
   giftsEnabled = true,
   starsEnabled = true,
   groundEnabled = true,
-  moonSkyEnabled = true
+  moonSkyEnabled = true,
+  // Mode plein écran
+  isFullscreen = false
 }) {
   const handleOrnamentClick = (ornamentIndex) => {
     console.log(`Ornement ${ornamentIndex} cliqué!`)
   }
 
   return (
-    <Canvas
-      shadows
-      gl={{ antialias: true, alpha: true }}
-      style={{ width: '100%', height: '100vh', background: 'linear-gradient(to bottom, #0a0a1a 0%, #1a1a2e 100%)' }}
+    <div
+      className={`scene-wrapper ${isFullscreen ? 'fullscreen' : 'reduced'}`}
     >
+      <Canvas
+        shadows
+        gl={{ antialias: true, alpha: true }}
+        style={{ 
+          width: '100%', 
+          height: '100%',
+          background: 'linear-gradient(to bottom, #0a0a1a 0%, #1a1a2e 100%)'
+        }}
+      >
       <Suspense fallback={null}>
         {/* Caméra avec position personnalisable */}
         <PerspectiveCamera
@@ -116,6 +125,7 @@ function Scene({
         {children}
       </Suspense>
     </Canvas>
+    </div>
   )
 }
 

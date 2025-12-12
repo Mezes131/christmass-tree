@@ -2,6 +2,14 @@
  * Styles pour l'interface de contrôle du sapin de Noël
  */
 
+/* Version intégrée dans SidePanel (sans position fixe) */
+.tree-controls-integrated {
+  width: 100%;
+  background: transparent;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+/* Version standalone (pour compatibilité) */
 .tree-controls {
   position: fixed;
   top: 20px;
@@ -45,9 +53,15 @@
 }
 
 .controls-content {
-  padding: 16px;
-  max-height: calc(100vh - 100px);
+  padding: 0;
+  max-height: calc(100vh - 200px);
   overflow-y: auto;
+}
+
+.tree-controls-integrated .controls-content {
+  padding: 0;
+  max-height: none;
+  overflow-y: visible;
 }
 
 .control-section {

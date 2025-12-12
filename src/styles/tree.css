@@ -5,10 +5,49 @@
 /* Conteneur principal de l'application */
 .app-container {
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
   position: relative;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(to bottom, #04040a 0%, #1a1a2e 50%, #16213e 100%);
+}
+
+.app-container.fullscreen {
+  height: 100vh;
   overflow: hidden;
-  background: linear-gradient(to bottom, #0a0a1a 0%, #1a1a2e 50%, #16213e 100%);
+}
+
+.main-content {
+  flex: 1;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 200px);
+  width: 100%;
+}
+
+.scene-wrapper {
+  width: 100%;
+  transition: all 0.3s ease;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.scene-wrapper.reduced {
+  width: 80%;
+  max-width: 1400px;
+  height: calc(100vh - 5rem);
+  margin: 80px auto;
+  border-radius: 12px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+}
+
+.scene-wrapper.fullscreen {
+  width: 100%;
+  height: 100vh;
+  border-radius: 0;
+  box-shadow: none;
+  margin: 0;
 }
 
 /* Styles pour la scène 3D */

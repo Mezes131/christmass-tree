@@ -1,10 +1,16 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Scene from './components/Scene'
 import TreeControls from './components/ChristmasTree/TreeControls'
+import NavBar from './components/NavBar'
+import SidePanel from './components/SidePanel'
+import Footer from './components/Footer'
 import './App.css'
 import './styles/tree.css'
 
 function App() {
+  const [isLoaded, setIsLoaded] = useState(false)
+  const [isFullscreen, setIsFullscreen] = useState(false)
+  const [isSidePanelExpanded, setIsSidePanelExpanded] = useState(false)
   const [lightsOn, setLightsOn] = useState(true)
   const [lightMode, setLightMode] = useState('static')
   const [lightSpeed, setLightSpeed] = useState(1)
@@ -82,57 +88,135 @@ function App() {
     setMoonSkyEnabled(!moonSkyEnabled)
   }
 
+  // Gestion du chargement
+  useEffect(() => {
+    setIsLoaded(true)
+  }, [])
+
+  // Gestion du fullscreen
+  const handleFullscreen = () => {
+    if (!isFullscreen) {
+      if (document.documentElement.requestFullscreen) {
+        document.documentElement.requestFullscreen()
+      } else if (document.documentElement.webkitRequestFullscreen) {
+        document.documentElement.webkitRequestFullscreen()
+      } else if (document.documentElement.msRequestFullscreen) {
+        document.documentElement.msRequestFullscreen()
+      }
+    } else {
+      if (document.exitFullscreen) {
+        document.exitFullscreen()
+      } else if (document.webkitExitFullscreen) {
+        document.webkitExitFullscreen()
+      } else if (document.msExitFullscreen) {
+        document.msExitFullscreen()
+      }
+    }
+    setIsFullscreen(!isFullscreen)
+  }
+
+  // Écouter les changements de fullscreen
+  useEffect(() => {
+    const handleFullscreenChange = () => {
+      setIsFullscreen(!!document.fullscreenElement || !!document.webkitFullscreenElement || !!document.msFullscreenElement)
+    }
+
+    document.addEventListener('fullscreenchange', handleFullscreenChange)
+    document.addEventListener('webkitfullscreenchange', handleFullscreenChange)
+    document.addEventListener('msfullscreenchange', handleFullscreenChange)
+
+    return () => {
+      document.removeEventListener('fullscreenchange', handleFullscreenChange)
+      document.removeEventListener('webkitfullscreenchange', handleFullscreenChange)
+      document.removeEventListener('msfullscreenchange', handleFullscreenChange)
+    }
+  }, [])
+
   return (
-    <div className="app-container">
-      <Scene
-        lightsOn={lightsOn}
-        lightMode={lightMode}
-        lightSpeed={lightSpeed}
-        lightIntensity={lightIntensity}
-        lightColorScheme={lightColorScheme}
-        snowEnabled={snowEnabled}
-        snowCount={snowCount}
-        snowSpeed={snowSpeed}
-        snowSize={snowSize}
-        windStrength={windStrength}
-        giftsEnabled={giftsEnabled}
-        starsEnabled={starsEnabled}
-        groundEnabled={groundEnabled}
-        moonSkyEnabled={moonSkyEnabled}
-      >
-        {/* Le sapin de Noël et les autres éléments seront ajoutés ici */}
-      </Scene>
+    <div className={`app-container ${isFullscreen ? 'fullscreen' : ''}`}>
+      <NavBar isLoaded={isLoaded} />
       
-      <TreeControls
-        lightsOn={lightsOn}
-        lightMode={lightMode}
-        lightSpeed={lightSpeed}
-        lightIntensity={lightIntensity}
-        lightColorScheme={lightColorScheme}
-        onLightsToggle={handleLightsToggle}
-        onModeChange={handleModeChange}
-        onSpeedChange={handleSpeedChange}
-        onIntensityChange={handleIntensityChange}
-        onColorSchemeChange={handleColorSchemeChange}
-        snowEnabled={snowEnabled}
-        snowCount={snowCount}
-        snowSpeed={snowSpeed}
-        snowSize={snowSize}
-        windStrength={windStrength}
-        onSnowToggle={handleSnowToggle}
-        onSnowCountChange={handleSnowCountChange}
-        onSnowSpeedChange={handleSnowSpeedChange}
-        onSnowSizeChange={handleSnowSizeChange}
-        onWindStrengthChange={handleWindStrengthChange}
-        giftsEnabled={giftsEnabled}
-        starsEnabled={starsEnabled}
-        groundEnabled={groundEnabled}
-        moonSkyEnabled={moonSkyEnabled}
-        onGiftsToggle={handleGiftsToggle}
-        onStarsToggle={handleStarsToggle}
-        onGroundToggle={handleGroundToggle}
-        onMoonSkyToggle={handleMoonSkyToggle}
-      />
+      <div className="main-content">
+        <Scene
+          lightsOn={lightsOn}
+          lightMode={lightMode}
+          lightSpeed={lightSpeed}
+          lightIntensity={lightIntensity}
+          lightColorScheme={lightColorScheme}
+          snowEnabled={snowEnabled}
+          snowCount={snowCount}
+          snowSpeed={snowSpeed}
+          snowSize={snowSize}
+          windStrength={windStrength}
+          giftsEnabled={giftsEnabled}
+          starsEnabled={starsEnabled}
+          groundEnabled={groundEnabled}
+          moonSkyEnabled={moonSkyEnabled}
+          isFullscreen={isFullscreen}
+        >
+          {/* Le sapin de Noël et les autres éléments seront ajoutés ici */}
+        </Scene>
+        
+        <SidePanel
+          isExpanded={isSidePanelExpanded}
+          onToggle={() => setIsSidePanelExpanded(!isSidePanelExpanded)}
+          onFullscreen={handleFullscreen}
+          isFullscreen={isFullscreen}
+        >
+          {{
+            controls: (
+              <TreeControls
+                lightsOn={lightsOn}
+                lightMode={lightMode}
+                lightSpeed={lightSpeed}
+                lightIntensity={lightIntensity}
+                lightColorScheme={lightColorScheme}
+                onLightsToggle={handleLightsToggle}
+                onModeChange={handleModeChange}
+                onSpeedChange={handleSpeedChange}
+                onIntensityChange={handleIntensityChange}
+                onColorSchemeChange={handleColorSchemeChange}
+                snowEnabled={snowEnabled}
+                snowCount={snowCount}
+                snowSpeed={snowSpeed}
+                snowSize={snowSize}
+                windStrength={windStrength}
+                onSnowToggle={handleSnowToggle}
+                onSnowCountChange={handleSnowCountChange}
+                onSnowSpeedChange={handleSnowSpeedChange}
+                onSnowSizeChange={handleSnowSizeChange}
+                onWindStrengthChange={handleWindStrengthChange}
+                giftsEnabled={giftsEnabled}
+                starsEnabled={starsEnabled}
+                groundEnabled={groundEnabled}
+                moonSkyEnabled={moonSkyEnabled}
+                onGiftsToggle={handleGiftsToggle}
+                onStarsToggle={handleStarsToggle}
+                onGroundToggle={handleGroundToggle}
+                onMoonSkyToggle={handleMoonSkyToggle}
+              />
+            ),
+            info: (
+              <div className="info-content">
+                <h4>About this Project</h4>
+                <p>
+                  An interactive 3D Christmas tree built with React and Three.js. 
+                  Customize lights, decorations, and effects in real-time.
+                </p>
+                <h4>Technologies</h4>
+                <ul>
+                  <li>React 19</li>
+                  <li>Three.js & React Three Fiber</li>
+                  <li>CSS3 Animations</li>
+                  <li>WebGL Rendering</li>
+                </ul>
+              </div>
+            )
+          }}
+        </SidePanel>
+      </div>
+      
+      <Footer isLoaded={isLoaded} />
     </div>
   )
 }
