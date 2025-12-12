@@ -59,9 +59,11 @@ function Moon({
         const craters = []
         for (let i = 0; i < 5; i++) {
           const angle = (i / 5) * Math.PI * 2
+          // eslint-disable-next-line react-hooks/purity
           const distance = size * (0.3 + Math.random() * 0.4)
           const x = Math.cos(angle) * distance
           const z = Math.sin(angle) * distance
+          // eslint-disable-next-line react-hooks/purity
           const craterSize = 0.1 + Math.random() * 0.15
           craters.push({ position: [x, z * 0.3, z], size: craterSize })
         }

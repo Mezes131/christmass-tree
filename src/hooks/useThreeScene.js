@@ -21,6 +21,8 @@ export function useThreeScene() {
   useEffect(() => {
     // Configuration du rendu
     gl.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+    // Configuration des ombres (modification directe nécessaire pour Three.js)
+    // eslint-disable-next-line react-hooks/immutability
     gl.shadowMap.enabled = true
     gl.shadowMap.type = THREE.PCFSoftShadowMap
     
@@ -86,7 +88,7 @@ export function useThreeScene() {
    * Hook useFrame pour les animations continues
    * S'exécute à chaque frame de rendu
    */
-  useFrame((state, delta) => {
+  useFrame(() => {
     // Ici on peut ajouter des animations globales si nécessaire
     // Par exemple, rotation lente de la scène ou animations de lumières
   })
@@ -117,29 +119,32 @@ export function useLightAnimation(lightRef, mode = 'static', speed = 1) {
     timeRef.current += delta * speed
 
     switch (mode) {
-      case 'twinkle':
+      case 'twinkle': {
         // Effet de scintillement aléatoire
         const twinkle = Math.sin(timeRef.current * 5) * 0.5 + 0.5
         lightRef.current.intensity = 0.3 + twinkle * 0.7
         break
+      }
 
-      case 'cascade':
+      case 'cascade': {
         // Effet de cascade (allumage progressif)
         const cascade = Math.sin(timeRef.current * 0.5) * 0.5 + 0.5
         lightRef.current.intensity = cascade
         break
+      }
 
-      case 'wave':
+      case 'wave': {
         // Effet de vague
         const wave = Math.sin(timeRef.current * 2 + lightRef.current.position.y) * 0.5 + 0.5
         lightRef.current.intensity = 0.4 + wave * 0.6
         break
+      }
 
-      case 'chase':
+      case 'chase': {
         // Effet de poursuite (une lumière après l'autre)
-        const chaseIndex = Math.floor(timeRef.current * 2) % 50
         // Note: Cette logique sera gérée dans le composant LightBulb avec l'index
         break
+      }
 
       case 'static':
       default:

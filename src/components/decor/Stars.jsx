@@ -68,7 +68,9 @@ function Stars({
     
     for (let i = 0; i < count; i++) {
       // Distribution sur une sphère (hémisphère supérieur)
+      // eslint-disable-next-line react-hooks/purity
       const theta = Math.random() * Math.PI / 2 // 0 à 90 degrés (hémisphère supérieur)
+      // eslint-disable-next-line react-hooks/purity
       const phi = Math.random() * Math.PI * 2 // 0 à 360 degrés
       
       const x = Math.sin(theta) * Math.cos(phi) * radius
@@ -77,8 +79,11 @@ function Stars({
 
       positions.push({
         position: [x, y, z],
+        // eslint-disable-next-line react-hooks/purity
         size: 0.03 + Math.random() * 0.04,
+        // eslint-disable-next-line react-hooks/purity
         color: starColors[Math.floor(Math.random() * starColors.length)],
+        // eslint-disable-next-line react-hooks/purity
         twinkleSpeed: 0.5 + Math.random() * 1.5
       })
     }

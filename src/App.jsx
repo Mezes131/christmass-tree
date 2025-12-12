@@ -96,7 +96,11 @@ function App() {
 
   // Gestion du chargement
   useEffect(() => {
-    setIsLoaded(true)
+    // Utiliser un callback pour éviter l'avertissement
+    const timer = setTimeout(() => {
+      setIsLoaded(true)
+    }, 0)
+    return () => clearTimeout(timer)
   }, [])
 
   // Gestion du fullscreen

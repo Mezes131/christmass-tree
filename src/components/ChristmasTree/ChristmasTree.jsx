@@ -17,12 +17,12 @@ function ChristmasTree({
   lightSpeed = 1,
   lightIntensity = 1,
   lightColorScheme = 'multicolor',
-  // Propriétés pour la neige
-  snowEnabled = false,
-  snowCount = 1000,
-  snowSpeed = 1,
-  snowSize = 0.02,
-  windStrength = 0.1
+  // Propriétés pour la neige (non utilisées directement, passées à SnowEffect)
+  // snowEnabled = false,
+  // snowCount = 1000,
+  // snowSpeed = 1,
+  // snowSize = 0.02,
+  // windStrength = 0.1
 }) {
   return (
     <group position={position}>
@@ -45,7 +45,6 @@ function ChristmasTree({
       
       {/* Ornements décoratifs */}
       <Ornaments 
-        treeHeight={5.5}
         treeRadius={1.2}
         onOrnamentClick={onOrnamentClick}
         isInteractive={isInteractive}

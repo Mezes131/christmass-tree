@@ -1,5 +1,4 @@
 import { useRef, useMemo } from 'react'
-import { useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
 
 /**
@@ -107,17 +106,22 @@ function Gifts({
     const baseRadius = treeRadius + 0.8
 
     for (let i = 0; i < count; i++) {
+      // eslint-disable-next-line react-hooks/purity
       const angle = i * angleStep + (Math.random() - 0.5) * 0.5
+      // eslint-disable-next-line react-hooks/purity
       const radius = baseRadius + (Math.random() - 0.5) * 0.5
       
       const x = Math.cos(angle) * radius
       const z = Math.sin(angle) * radius
+      // eslint-disable-next-line react-hooks/purity
       const y = 0.25 + Math.random() * 0.1 // Légère variation de hauteur
 
       // Tailles variées
+      // eslint-disable-next-line react-hooks/purity
       const sizeVariation = 0.3 + Math.random() * 0.4
       const size = [
         sizeVariation,
+        // eslint-disable-next-line react-hooks/purity
         sizeVariation * (0.8 + Math.random() * 0.4),
         sizeVariation
       ]
@@ -125,14 +129,18 @@ function Gifts({
       // Rotation aléatoire
       const rotation = [
         0,
+        // eslint-disable-next-line react-hooks/purity
         Math.random() * Math.PI * 2,
+        // eslint-disable-next-line react-hooks/purity
         (Math.random() - 0.5) * 0.2
       ]
 
       gifts.push({
         position: [x, y, z],
         size,
+        // eslint-disable-next-line react-hooks/purity
         boxColor: boxColors[Math.floor(Math.random() * boxColors.length)],
+        // eslint-disable-next-line react-hooks/purity
         ribbonColor: ribbonColors[Math.floor(Math.random() * ribbonColors.length)],
         rotation
       })

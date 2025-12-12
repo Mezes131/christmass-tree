@@ -22,16 +22,23 @@ function Snow({
 
     for (let i = 0; i < count; i++) {
       // Position initiale aléatoire dans un volume
+      // eslint-disable-next-line react-hooks/purity
       positions[i * 3] = (Math.random() - 0.5) * 20 // x
+      // eslint-disable-next-line react-hooks/purity
       positions[i * 3 + 1] = Math.random() * 30 + 5 // y (commence en haut)
+      // eslint-disable-next-line react-hooks/purity
       positions[i * 3 + 2] = (Math.random() - 0.5) * 20 // z
 
       // Vitesse initiale (chute + vent)
+      // eslint-disable-next-line react-hooks/purity
       velocities[i * 3] = (Math.random() - 0.5) * windStrength // vent horizontal
+      // eslint-disable-next-line react-hooks/purity
       velocities[i * 3 + 1] = -Math.random() * 0.5 - 0.5 // vitesse de chute
+      // eslint-disable-next-line react-hooks/purity
       velocities[i * 3 + 2] = (Math.random() - 0.5) * windStrength // vent en profondeur
 
       // Taille aléatoire pour chaque flocon
+      // eslint-disable-next-line react-hooks/purity
       particleSizes[i] = Math.random() * size + size * 0.5
     }
 

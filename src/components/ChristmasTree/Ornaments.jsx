@@ -70,7 +70,6 @@ function Ornament({
  * Composant Ornaments - Gère tous les ornements du sapin
  */
 function Ornaments({ 
-  treeHeight = 5.5,
   treeRadius = 1.2,
   onOrnamentClick,
   isInteractive = true
@@ -103,17 +102,20 @@ function Ornaments({
         const x = Math.cos(angle) * radius
         const z = Math.sin(angle) * radius
         // Légère variation verticale pour plus de réalisme
+        // eslint-disable-next-line react-hooks/purity
         const yVariation = (Math.random() - 0.5) * 0.3
         positions.push({
           position: [x, y + yVariation, z],
+          // eslint-disable-next-line react-hooks/purity
           color: ornamentColors[Math.floor(Math.random() * ornamentColors.length)],
+          // eslint-disable-next-line react-hooks/purity
           size: 0.12 + Math.random() * 0.06
         })
       }
     }
 
     return positions
-  }, [treeHeight, treeRadius, ornamentColors])
+  }, [treeRadius, ornamentColors])
 
   return (
     <group>

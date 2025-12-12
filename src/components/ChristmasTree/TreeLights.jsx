@@ -30,30 +30,34 @@ function LightBulb({
     let currentIntensity = 1
 
     switch (mode) {
-      case 'twinkle':
+      case 'twinkle': {
         // Effet de scintillement aléatoire
         const twinkle = Math.sin(timeRef.current * 5 + index) * 0.5 + 0.5
         currentIntensity = 0.3 + twinkle * 0.7
         break
+      }
 
-      case 'cascade':
+      case 'cascade': {
         // Effet de cascade (allumage progressif de bas en haut)
         const cascadeDelay = index * 0.1
         const cascade = Math.sin((timeRef.current - cascadeDelay) * 0.5) * 0.5 + 0.5
         currentIntensity = cascade
         break
+      }
 
-      case 'wave':
+      case 'wave': {
         // Effet de vague
         const wave = Math.sin(timeRef.current * 2 + position[1] * 0.5 + index * 0.3) * 0.5 + 0.5
         currentIntensity = 0.4 + wave * 0.6
         break
+      }
 
-      case 'chase':
+      case 'chase': {
         // Effet de poursuite (une lumière après l'autre)
         const chaseIndex = Math.floor(timeRef.current * 2) % 50
         currentIntensity = Math.abs(chaseIndex - index) < 3 ? 1 : 0.2
         break
+      }
 
       case 'static':
       default:
@@ -128,7 +132,6 @@ function TreeLights({
     const positions = []
     const numSpirals = 3 // Nombre de spirales autour du sapin
     const lightsPerSpiral = 15 // Nombre de lumières par spirale
-    const totalLights = numSpirals * lightsPerSpiral
 
     for (let spiral = 0; spiral < numSpirals; spiral++) {
       for (let i = 0; i < lightsPerSpiral; i++) {

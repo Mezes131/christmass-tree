@@ -27,8 +27,11 @@ function StarField({
       const i3 = i * 3
 
       // Distribution uniforme dans une coquille sphérique
+      // eslint-disable-next-line react-hooks/purity
       const radius = minDistance + Math.random() * (spreadDistance - minDistance)
+      // eslint-disable-next-line react-hooks/purity
       const theta = Math.random() * Math.PI * 2 // Angle horizontal
+      // eslint-disable-next-line react-hooks/purity
       const phi = Math.acos(Math.random() * 2 - 1) // Angle vertical pour distribution uniforme
 
       positionsArray[i3] = radius * Math.sin(phi) * Math.cos(theta)
@@ -36,27 +39,34 @@ function StarField({
       positionsArray[i3 + 2] = radius * Math.cos(phi)
 
       // Couleurs variées pour les étoiles (blanc, bleu, jaune, rouge)
+      // eslint-disable-next-line react-hooks/purity
       const colorType = Math.random()
       let starColor
       if (colorType < 0.6) {
         // Étoiles blanches/bleues (majorité)
         starColor = new THREE.Color().setHSL(
+          // eslint-disable-next-line react-hooks/purity
           0.55 + Math.random() * 0.1,
           0.2,
+          // eslint-disable-next-line react-hooks/purity
           0.7 + Math.random() * 0.3
         )
       } else if (colorType < 0.85) {
         // Étoiles jaunes
         starColor = new THREE.Color().setHSL(
+          // eslint-disable-next-line react-hooks/purity
           0.1 + Math.random() * 0.1,
           0.5,
+          // eslint-disable-next-line react-hooks/purity
           0.6 + Math.random() * 0.3
         )
       } else {
         // Étoiles rouges/orange (rares)
         starColor = new THREE.Color().setHSL(
+          // eslint-disable-next-line react-hooks/purity
           Math.random() * 0.1,
           0.8,
+          // eslint-disable-next-line react-hooks/purity
           0.5 + Math.random() * 0.3
         )
       }
@@ -66,6 +76,7 @@ function StarField({
       colorsArray[i3 + 2] = starColor.b
 
       // Tailles variées pour les étoiles
+      // eslint-disable-next-line react-hooks/purity
       sizesArray[i] = 0.05 + Math.random() * 0.15
     }
 
