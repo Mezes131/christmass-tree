@@ -108,6 +108,11 @@
   border-color: #FFD700;
   box-shadow: 0 4px 20px rgba(255, 215, 0, 0.4);
 }
+.toggle-button.snow {
+    background: linear-gradient(135deg, #0095ff 0%, #0040ff 100%);
+    border-color: #0062ff;
+    box-shadow: 0 4px 20px rgba(0, 94, 255, 0.4);
+  }
 
 .toggle-button.off {
   background: rgba(100, 100, 100, 0.2);

@@ -6,7 +6,8 @@ import {
   faWaveSquare, 
   faWater,
   faForward, 
-  faPowerOff
+  faPowerOff,
+  faSnowflake
 } from '@fortawesome/free-solid-svg-icons'
 import '../../styles/controls.css'
 
@@ -24,7 +25,18 @@ function TreeControls({
   onModeChange,
   onSpeedChange,
   onIntensityChange,
-  onColorSchemeChange
+  onColorSchemeChange,
+  // Propriétés pour la neige
+  snowEnabled = false,
+  snowCount = 1000,
+  snowSpeed = 1,
+  snowSize = 0.02,
+  windStrength = 0.1,
+  onSnowToggle,
+  onSnowCountChange,
+  onSnowSpeedChange,
+  onSnowSizeChange,
+  onWindStrengthChange
 }) {
   const [isExpanded, setIsExpanded] = useState(true)
 
@@ -163,6 +175,112 @@ function TreeControls({
                 </button>
               ))}
             </div>
+          </div>
+
+          {/* Snow Section */}
+          <div className="control-section">
+            <h3 className="control-title">Snow</h3>
+            <button
+              className={`toggle-button ${snowEnabled ? 'on' : 'off'} snow`}
+              onClick={onSnowToggle}
+            >
+              <span className="toggle-icon">
+                <FontAwesomeIcon icon={snowEnabled ? faSnowflake : faPowerOff} />
+              </span>
+              <span className="toggle-label">{snowEnabled ? 'On' : 'Off'}</span>
+            </button>
+
+            {snowEnabled && (
+              <>
+                <div className="control-section" style={{ marginTop: '16px' }}>
+                  <h3 className="control-title">
+                    Count
+                    <span className="value-display">{snowCount}</span>
+                  </h3>
+                  <div className="slider-container">
+                    <input
+                      type="range"
+                      min="100"
+                      max="3000"
+                      step="100"
+                      value={snowCount}
+                      onChange={(e) => onSnowCountChange(parseInt(e.target.value))}
+                      className="slider"
+                    />
+                    <div className="slider-labels">
+                      <span>Few</span>
+                      <span>Many</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="control-section">
+                  <h3 className="control-title">
+                    Speed
+                    <span className="value-display">{snowSpeed.toFixed(1)}x</span>
+                  </h3>
+                  <div className="slider-container">
+                    <input
+                      type="range"
+                      min="0.1"
+                      max="3"
+                      step="0.1"
+                      value={snowSpeed}
+                      onChange={(e) => onSnowSpeedChange(parseFloat(e.target.value))}
+                      className="slider"
+                    />
+                    <div className="slider-labels">
+                      <span>Slow</span>
+                      <span>Fast</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="control-section">
+                  <h3 className="control-title">
+                    Size
+                    <span className="value-display">{(snowSize * 100).toFixed(0)}%</span>
+                  </h3>
+                  <div className="slider-container">
+                    <input
+                      type="range"
+                      min="0.01"
+                      max="0.1"
+                      step="0.01"
+                      value={snowSize}
+                      onChange={(e) => onSnowSizeChange(parseFloat(e.target.value))}
+                      className="slider"
+                    />
+                    <div className="slider-labels">
+                      <span>Small</span>
+                      <span>Large</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="control-section">
+                  <h3 className="control-title">
+                    Wind
+                    <span className="value-display">{windStrength.toFixed(1)}</span>
+                  </h3>
+                  <div className="slider-container">
+                    <input
+                      type="range"
+                      min="0"
+                      max="0.5"
+                      step="0.05"
+                      value={windStrength}
+                      onChange={(e) => onWindStrengthChange(parseFloat(e.target.value))}
+                      className="slider"
+                    />
+                    <div className="slider-labels">
+                      <span>Calm</span>
+                      <span>Windy</span>
+                    </div>
+                  </div>
+                </div>
+              </>
+            )}
           </div>
         </div>
       )}

@@ -2,6 +2,7 @@ import { Canvas } from '@react-three/fiber'
 import { OrbitControls, PerspectiveCamera } from '@react-three/drei'
 import { Suspense } from 'react'
 import ChristmasTree from './ChristmasTree/ChristmasTree'
+import { SnowEffect } from './ChristmasTree/ChristmasTree'
 import '../styles/lights.css'
 
 /**
@@ -16,7 +17,13 @@ function Scene({
   lightMode = 'static',
   lightSpeed = 1,
   lightIntensity = 1,
-  lightColorScheme = 'multicolor'
+  lightColorScheme = 'multicolor',
+  // Propriétés pour la neige
+  snowEnabled = false,
+  snowCount = 1000,
+  snowSpeed = 1,
+  snowSize = 0.02,
+  windStrength = 0.1
 }) {
   const handleOrnamentClick = (ornamentIndex) => {
     console.log(`Ornement ${ornamentIndex} cliqué!`)
@@ -75,6 +82,20 @@ function Scene({
           lightSpeed={lightSpeed}
           lightIntensity={lightIntensity}
           lightColorScheme={lightColorScheme}
+          snowEnabled={snowEnabled}
+          snowCount={snowCount}
+          snowSpeed={snowSpeed}
+          snowSize={snowSize}
+          windStrength={windStrength}
+        />
+        
+        {/* Effet de neige */}
+        <SnowEffect
+          enabled={snowEnabled}
+          count={snowCount}
+          speed={snowSpeed}
+          size={snowSize}
+          windStrength={windStrength}
         />
         
         {/* Contenu supplémentaire de la scène (lumières, effets, etc.) */}
