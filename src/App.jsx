@@ -6,6 +6,7 @@ import SidePanel from './components/SidePanel'
 import Footer from './components/Footer'
 import './App.css'
 import './styles/tree.css'
+import './styles/decor.css'
 
 function App() {
   const [isLoaded, setIsLoaded] = useState(false)
@@ -27,6 +28,7 @@ function App() {
   // États pour les décors
   const [giftsEnabled, setGiftsEnabled] = useState(true)
   const [starsEnabled, setStarsEnabled] = useState(true)
+  const [starFieldEnabled, setStarFieldEnabled] = useState(true)
   const [groundEnabled, setGroundEnabled] = useState(true)
   const [moonSkyEnabled, setMoonSkyEnabled] = useState(true)
 
@@ -78,6 +80,10 @@ function App() {
 
   const handleStarsToggle = () => {
     setStarsEnabled(!starsEnabled)
+  }
+
+  const handleStarFieldToggle = () => {
+    setStarFieldEnabled(!starFieldEnabled)
   }
 
   const handleGroundToggle = () => {
@@ -150,6 +156,7 @@ function App() {
           windStrength={windStrength}
           giftsEnabled={giftsEnabled}
           starsEnabled={starsEnabled}
+          starFieldEnabled={starFieldEnabled}
           groundEnabled={groundEnabled}
           moonSkyEnabled={moonSkyEnabled}
           isFullscreen={isFullscreen}
@@ -188,10 +195,12 @@ function App() {
                 onWindStrengthChange={handleWindStrengthChange}
                 giftsEnabled={giftsEnabled}
                 starsEnabled={starsEnabled}
+                starFieldEnabled={starFieldEnabled}
                 groundEnabled={groundEnabled}
                 moonSkyEnabled={moonSkyEnabled}
                 onGiftsToggle={handleGiftsToggle}
                 onStarsToggle={handleStarsToggle}
+                onStarFieldToggle={handleStarFieldToggle}
                 onGroundToggle={handleGroundToggle}
                 onMoonSkyToggle={handleMoonSkyToggle}
               />

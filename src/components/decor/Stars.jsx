@@ -23,16 +23,23 @@ function Star({
     }
   })
 
+  // Mémorisation de la géométrie et du matériau pour optimiser les performances
+  const geometry = useMemo(() => {
+    return new THREE.SphereGeometry(size, 8, 8)
+  }, [size])
+
+  const material = useMemo(() => {
+    return new THREE.MeshStandardMaterial({
+      color,
+      emissive: color,
+      emissiveIntensity: 0.5,
+      transparent: true,
+      opacity: 0.8
+    })
+  }, [color])
+
   return (
-    <mesh ref={meshRef} position={position}>
-      <sphereGeometry args={[size, 8, 8]} />
-      <meshStandardMaterial
-        color={color}
-        emissive={color}
-        emissiveIntensity={0.5}
-        transparent
-        opacity={0.8}
-      />
+    <mesh ref={meshRef} position={position} geometry={geometry} material={material}>
     </mesh>
   )
 }

@@ -1,5 +1,6 @@
 import Gifts from './Gifts'
 import Stars from './Stars'
+import StarField from './StarField'
 import Ground from './Ground'
 import MoonSky from './MoonSky'
 
@@ -11,6 +12,7 @@ function DecorManager({
   // Activation des décors
   giftsEnabled = true,
   starsEnabled = true,
+  starFieldEnabled = false, // Désactivé par défaut car plus lourd
   groundEnabled = true,
   moonSkyEnabled = true,
   
@@ -22,6 +24,11 @@ function DecorManager({
   starsCount = 200,
   starsRadius = 30,
   starsTwinkleSpeed = 1,
+  // Configuration du champ d'étoiles
+  starFieldCount = 5000,
+  starFieldSpreadDistance = 200,
+  starFieldMinDistance = 20,
+  starFieldTwinkleSpeed = 0.5,
   
   // Configuration du sol
   groundSize = 20,
@@ -49,12 +56,21 @@ function DecorManager({
         treeRadius={treeRadius}
       />
       
-      {/* Étoiles dans le ciel */}
+      {/* Étoiles dans le ciel (meshes individuelles) */}
       <Stars
         enabled={starsEnabled}
         count={starsCount}
         radius={starsRadius}
         twinkleSpeed={starsTwinkleSpeed}
+      />
+      
+      {/* Champ d'étoiles (système de particules optimisé) */}
+      <StarField
+        enabled={starFieldEnabled}
+        count={starFieldCount}
+        spreadDistance={starFieldSpreadDistance}
+        minDistance={starFieldMinDistance}
+        twinkleSpeed={starFieldTwinkleSpeed}
       />
       
       {/* Lune et ciel étoilé */}

@@ -43,10 +43,12 @@ function TreeControls({
   // Propriétés pour les décors
   giftsEnabled = true,
   starsEnabled = true,
+  starFieldEnabled = false,
   groundEnabled = true,
   moonSkyEnabled = true,
   onGiftsToggle,
   onStarsToggle,
+  onStarFieldToggle,
   onGroundToggle,
   onMoonSkyToggle
 }) {
@@ -309,6 +311,18 @@ function TreeControls({
                   <FontAwesomeIcon icon={faStar} />
                 </span>
                 <span className="checkbox-label">Stars</span>
+              </label>
+              
+              <label className="decor-checkbox">
+                <input
+                  type="checkbox"
+                  checked={starFieldEnabled}
+                  onChange={onStarFieldToggle}
+                />
+                <span className="checkbox-icon">
+                  <FontAwesomeIcon icon={faStar} />
+                </span>
+                <span className="checkbox-label">Star Field</span>
               </label>
               
               <label className="decor-checkbox">

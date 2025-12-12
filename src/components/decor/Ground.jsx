@@ -13,6 +13,36 @@ function Ground({
 }) {
   const meshRef = useRef()
 
+  // Mémorisation de la géométrie pour optimiser les performances
+  const groundGeometry = useMemo(() => {
+    return new THREE.PlaneGeometry(size, size, 32, 32)
+  }, [size])
+
+  const snowGeometry = useMemo(() => {
+    return new THREE.PlaneGeometry(size * 0.8, size * 0.8)
+  }, [size])
+
+  // Mémorisation des matériaux
+  const groundMaterial = useMemo(() => {
+    return new THREE.MeshStandardMaterial({
+      color: '#F0F8FF',
+      roughness: 0.9,
+      metalness: 0.1,
+      side: THREE.FrontSide
+    })
+  }, [])
+
+  const snowMaterial = useMemo(() => {
+    return new THREE.MeshStandardMaterial({
+      color: '#FFFFFF',
+      roughness: 0.95,
+      metalness: 0.05,
+      transparent: true,
+      opacity: 0.3,
+      side: THREE.FrontSide
+    })
+  }, [])
+
   if (!enabled) {
     return null
   }
@@ -25,15 +55,9 @@ function Ground({
         rotation={[-Math.PI / 2, 0, 0]}
         position={[0, 0, 0]}
         receiveShadow={receiveShadows}
-      >
-        <planeGeometry args={[size, size, 32, 32]} />
-        <meshStandardMaterial
-          color="#F0F8FF" // Bleu très clair pour la neige
-          roughness={0.9}
-          metalness={0.1}
-          side={THREE.FrontSide}
-        />
-      </mesh>
+        geometry={groundGeometry}
+        material={groundMaterial}
+      />
       
       {/* Couche de neige accumulée (optionnel) */}
       {snowAccumulation && (
@@ -41,17 +65,9 @@ function Ground({
           rotation={[-Math.PI / 2, 0, 0]}
           position={[0, 0.01, 0]}
           receiveShadow
-        >
-          <planeGeometry args={[size * 0.8, size * 0.8]} />
-          <meshStandardMaterial
-            color="#FFFFFF"
-            roughness={0.95}
-            metalness={0.05}
-            transparent
-            opacity={0.3}
-            side={THREE.FrontSide}
-          />
-        </mesh>
+          geometry={snowGeometry}
+          material={snowMaterial}
+        />
       )}
     </group>
   )

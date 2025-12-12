@@ -28,6 +28,7 @@ function Scene({
   // Propriétés pour les décors
   giftsEnabled = true,
   starsEnabled = true,
+  starFieldEnabled = true,
   groundEnabled = true,
   moonSkyEnabled = true,
   // Mode plein écran
@@ -117,6 +118,7 @@ function Scene({
         <DecorManager
           giftsEnabled={giftsEnabled}
           starsEnabled={starsEnabled}
+          starFieldEnabled={starFieldEnabled}
           groundEnabled={groundEnabled}
           moonSkyEnabled={moonSkyEnabled}
         />

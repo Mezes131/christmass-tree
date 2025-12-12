@@ -54,25 +54,28 @@ function Moon({
         />
       </mesh>
 
-      {/* Cratères (détails) */}
-      {[...Array(5)].map((_, i) => {
-        const angle = (i / 5) * Math.PI * 2
-        const distance = size * (0.3 + Math.random() * 0.4)
-        const x = Math.cos(angle) * distance
-        const z = Math.sin(angle) * distance
-        const craterSize = 0.1 + Math.random() * 0.15
-
-        return (
-          <mesh key={`crater-${i}`} position={[x, z * 0.3, z]}>
-            <sphereGeometry args={[craterSize, 8, 8]} />
-            <meshStandardMaterial
-              color="#D4AF37"
-              roughness={0.9}
-              metalness={0.05}
-            />
-          </mesh>
-        )
-      })}
+      {/* Cratères (détails) - mémorisés pour performance */}
+      {useMemo(() => {
+        const craters = []
+        for (let i = 0; i < 5; i++) {
+          const angle = (i / 5) * Math.PI * 2
+          const distance = size * (0.3 + Math.random() * 0.4)
+          const x = Math.cos(angle) * distance
+          const z = Math.sin(angle) * distance
+          const craterSize = 0.1 + Math.random() * 0.15
+          craters.push({ position: [x, z * 0.3, z], size: craterSize })
+        }
+        return craters
+      }, [size]).map((crater, i) => (
+        <mesh key={`crater-${i}`} position={crater.position}>
+          <sphereGeometry args={[crater.size, 8, 8]} />
+          <meshStandardMaterial
+            color="#D4AF37"
+            roughness={0.9}
+            metalness={0.05}
+          />
+        </mesh>
+      ))}
     </group>
   )
 }
