@@ -135,6 +135,12 @@ export function useLightAnimation(lightRef, mode = 'static', speed = 1) {
         lightRef.current.intensity = 0.4 + wave * 0.6
         break
 
+      case 'chase':
+        // Effet de poursuite (une lumière après l'autre)
+        const chaseIndex = Math.floor(timeRef.current * 2) % 50
+        // Note: Cette logique sera gérée dans le composant LightBulb avec l'index
+        break
+
       case 'static':
       default:
         // Mode statique - intensité constante

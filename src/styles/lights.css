@@ -1,0 +1,216 @@
+/**
+ * Styles CSS pour les effets de guirlandes et animations de lumières
+ * Complément aux animations Three.js pour les effets visuels CSS
+ */
+
+/* Conteneur pour les effets CSS de guirlandes (si nécessaire pour overlay) */
+.lights-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Animation de scintillement pour les lumières */
+@keyframes twinkle {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+}
+
+/* Animation de cascade (allumage progressif) */
+@keyframes cascade {
+  0% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+  100% {
+    opacity: 0.8;
+    transform: scale(1);
+  }
+}
+
+/* Animation de vague */
+@keyframes wave {
+  0%, 100% {
+    opacity: 0.4;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.15);
+  }
+}
+
+/* Animation de poursuite (chase) */
+@keyframes chase {
+  0% {
+    opacity: 0.2;
+    transform: scale(0.8);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+  100% {
+    opacity: 0.2;
+    transform: scale(0.8);
+  }
+}
+
+/* Animation de pulsation pour mode statique */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 0.9;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+}
+
+/* Classes utilitaires pour les animations */
+.light-twinkle {
+  animation: twinkle 1s ease-in-out infinite;
+}
+
+.light-cascade {
+  animation: cascade 2s ease-in-out infinite;
+}
+
+.light-wave {
+  animation: wave 1.5s ease-in-out infinite;
+}
+
+.light-chase {
+  animation: chase 0.5s ease-in-out infinite;
+}
+
+.light-pulse {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+/* Effet de lueur pour les lumières */
+.light-glow {
+  filter: drop-shadow(0 0 10px currentColor);
+  transition: filter 0.3s ease;
+}
+
+.light-glow:hover {
+  filter: drop-shadow(0 0 20px currentColor);
+}
+
+/* Animation de couleur pour les lumières multicolores */
+@keyframes color-cycle {
+  0% {
+    color: #FF0000;
+  }
+  14% {
+    color: #FFA500;
+  }
+  28% {
+    color: #FFFF00;
+  }
+  42% {
+    color: #00FF00;
+  }
+  57% {
+    color: #00FFFF;
+  }
+  71% {
+    color: #0000FF;
+  }
+  85% {
+    color: #FF00FF;
+  }
+  100% {
+    color: #FF0000;
+  }
+}
+
+.light-color-cycle {
+  animation: color-cycle 3s linear infinite;
+}
+
+/* Effet de brillance pour les ampoules */
+@keyframes shine {
+  0% {
+    box-shadow: 0 0 5px currentColor, 0 0 10px currentColor, 0 0 15px currentColor;
+  }
+  50% {
+    box-shadow: 0 0 10px currentColor, 0 0 20px currentColor, 0 0 30px currentColor;
+  }
+  100% {
+    box-shadow: 0 0 5px currentColor, 0 0 10px currentColor, 0 0 15px currentColor;
+  }
+}
+
+.light-shine {
+  animation: shine 2s ease-in-out infinite;
+}
+
+/* Animation de rotation pour les guirlandes */
+@keyframes rotate-garland {
+  from {
+    transform: rotateZ(0deg);
+  }
+  to {
+    transform: rotateZ(360deg);
+  }
+}
+
+.garland-rotate {
+  animation: rotate-garland 20s linear infinite;
+}
+
+/* Effet de fade in/out pour l'allumage */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.light-fade-in {
+  animation: fade-in 0.5s ease-in;
+}
+
+.light-fade-out {
+  animation: fade-out 0.5s ease-out;
+}
+
+/* Responsive - ajustement pour petits écrans */
+@media (max-width: 768px) {
+  .light-glow {
+    filter: drop-shadow(0 0 5px currentColor);
+  }
+  
+  .light-glow:hover {
+    filter: drop-shadow(0 0 10px currentColor);
+  }
+}
+

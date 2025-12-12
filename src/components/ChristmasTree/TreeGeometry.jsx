@@ -3,6 +3,67 @@ import { useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
 
 /**
+ * Composant Star - Crée une étoile à 5 branches
+ */
+function Star({ position = [0, 0, 0], size = 0.3, color = '#FFD700' }) {
+  const starRef = useRef()
+  
+  // Création de la géométrie d'étoile à 5 branches
+  const starGeometry = useMemo(() => {
+    const shape = new THREE.Shape()
+    const outerRadius = size
+    const innerRadius = size * 0.4
+    const numPoints = 5
+    
+    // Calcul des points pour une étoile à 5 branches
+    for (let i = 0; i < numPoints * 2; i++) {
+      const angle = (i / (numPoints * 2)) * Math.PI * 2 - Math.PI / 2
+      const radius = i % 2 === 0 ? outerRadius : innerRadius
+      const x = Math.cos(angle) * radius
+      const y = Math.sin(angle) * radius
+      
+      if (i === 0) {
+        shape.moveTo(x, y)
+      } else {
+        shape.lineTo(x, y)
+      }
+    }
+    shape.closePath()
+    
+    // Extrusion pour donner de l'épaisseur à l'étoile
+    const extrudeSettings = {
+      depth: size * 0.2,
+      bevelEnabled: true,
+      bevelThickness: size * 0.05,
+      bevelSize: size * 0.05,
+      bevelSegments: 3
+    }
+    
+    return new THREE.ExtrudeGeometry(shape, extrudeSettings)
+  }, [size])
+
+  // Animation de rotation légère
+  // useFrame((state, delta) => {
+  //   if (starRef.current) {
+  //     starRef.current.rotation.y += delta * 0.3
+  //   }
+  // })
+
+  return (
+    <mesh ref={starRef} position={position}>
+      <primitive object={starGeometry} />
+      <meshStandardMaterial 
+        color={color}
+        emissive={color}
+        emissiveIntensity={0.8}
+        metalness={0.7}
+        roughness={0.3}
+      />
+    </mesh>
+  )
+}
+
+/**
  * Composant TreeGeometry - Crée la géométrie 3D du sapin de Noël
  * Utilise des cônes empilés pour créer un sapin réaliste
  */
@@ -86,14 +147,11 @@ function TreeGeometry({
       ))}
 
       {/* Étoile au sommet */}
-      <mesh position={[0, treeConfig.levels[treeConfig.levels.length - 1].y + 0.4, 0]}>
-        <coneGeometry args={[0.15, 0.3, 4]} />
-        <meshStandardMaterial 
-          color="#FFD700"
-          emissive="#FFD700"
-          emissiveIntensity={0.5}
-        />
-      </mesh>
+      <Star 
+        position={[0, treeConfig.levels[treeConfig.levels.length - 1].y + 0.55, -0.03]}
+        size={0.3}
+        color="#FFD700"
+      />
     </group>
   )
 }
