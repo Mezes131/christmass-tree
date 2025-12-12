@@ -5,6 +5,6 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
   base: process.env.NODE_ENV === 'production' 
-    ? '/christmass-tree/' // Remplacez par le nom de votre repository
+    ? 'christmass-tree'
     : '/',
 })
