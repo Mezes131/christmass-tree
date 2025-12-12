@@ -1,12 +1,17 @@
 import { Canvas } from '@react-three/fiber'
 import { OrbitControls, PerspectiveCamera } from '@react-three/drei'
 import { Suspense } from 'react'
+import ChristmasTree from './ChristmasTree/ChristmasTree'
 
 /**
  * Composant Scene - Conteneur principal pour la scène 3D Three.js
  * Utilise @react-three/fiber pour intégrer Three.js avec React
  */
 function Scene({ children, cameraPosition = [0, 5, 10] }) {
+  const handleOrnamentClick = (ornamentIndex) => {
+    console.log(`Ornement ${ornamentIndex} cliqué!`)
+  }
+
   return (
     <Canvas
       shadows
@@ -31,6 +36,13 @@ function Scene({ children, cameraPosition = [0, 5, 10] }) {
           castShadow
         />
         
+        {/* Lumière supplémentaire pour mieux éclairer le sapin */}
+        <pointLight
+          position={[-5, 5, 5]}
+          intensity={0.4}
+          color="#ffffff"
+        />
+        
         {/* Contrôles de la caméra (rotation, zoom, pan) */}
         <OrbitControls
           enableZoom={true}
@@ -42,7 +54,14 @@ function Scene({ children, cameraPosition = [0, 5, 10] }) {
           maxPolarAngle={Math.PI / 2}
         />
         
-        {/* Contenu de la scène (sapin, lumières, ornements) */}
+        {/* Sapin de Noël */}
+        <ChristmasTree 
+          position={[0, 0, 0]}
+          onOrnamentClick={handleOrnamentClick}
+          isInteractive={true}
+        />
+        
+        {/* Contenu supplémentaire de la scène (lumières, effets, etc.) */}
         {children}
       </Suspense>
     </Canvas>
