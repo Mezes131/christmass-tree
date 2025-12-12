@@ -151,6 +151,27 @@ All components are highly customizable through props:
 
 This project is private and proprietary.
 
+## 🚀 Deployment
+
+### GitHub Pages
+
+The project includes a GitHub Actions workflow for automatic deployment to GitHub Pages.
+
+1. **Enable GitHub Pages** in your repository settings:
+   - Go to Settings → Pages
+   - Source: Select "GitHub Actions"
+
+2. **Update the base path** in `vite.config.js`:
+   ```js
+   base: '/your-repo-name/'
+   ```
+
+3. **Push to main/master branch** - The workflow will automatically:
+   - Build the project
+   - Deploy to GitHub Pages
+
+The workflow file is located at `.github/workflows/deploy.yml`
+
 ## 👨‍💻 Development
 
 Built with modern React patterns:
