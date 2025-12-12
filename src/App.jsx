@@ -17,6 +17,12 @@ function App() {
   const [snowSpeed, setSnowSpeed] = useState(1)
   const [snowSize, setSnowSize] = useState(0.02)
   const [windStrength, setWindStrength] = useState(0.1)
+  
+  // États pour les décors
+  const [giftsEnabled, setGiftsEnabled] = useState(true)
+  const [starsEnabled, setStarsEnabled] = useState(true)
+  const [groundEnabled, setGroundEnabled] = useState(true)
+  const [moonSkyEnabled, setMoonSkyEnabled] = useState(true)
 
   const handleLightsToggle = () => {
     setLightsOn(!lightsOn)
@@ -59,6 +65,23 @@ function App() {
     setWindStrength(strength)
   }
 
+  // Handlers pour les décors
+  const handleGiftsToggle = () => {
+    setGiftsEnabled(!giftsEnabled)
+  }
+
+  const handleStarsToggle = () => {
+    setStarsEnabled(!starsEnabled)
+  }
+
+  const handleGroundToggle = () => {
+    setGroundEnabled(!groundEnabled)
+  }
+
+  const handleMoonSkyToggle = () => {
+    setMoonSkyEnabled(!moonSkyEnabled)
+  }
+
   return (
     <div className="app-container">
       <Scene
@@ -72,6 +95,10 @@ function App() {
         snowSpeed={snowSpeed}
         snowSize={snowSize}
         windStrength={windStrength}
+        giftsEnabled={giftsEnabled}
+        starsEnabled={starsEnabled}
+        groundEnabled={groundEnabled}
+        moonSkyEnabled={moonSkyEnabled}
       >
         {/* Le sapin de Noël et les autres éléments seront ajoutés ici */}
       </Scene>
@@ -97,6 +124,14 @@ function App() {
         onSnowSpeedChange={handleSnowSpeedChange}
         onSnowSizeChange={handleSnowSizeChange}
         onWindStrengthChange={handleWindStrengthChange}
+        giftsEnabled={giftsEnabled}
+        starsEnabled={starsEnabled}
+        groundEnabled={groundEnabled}
+        moonSkyEnabled={moonSkyEnabled}
+        onGiftsToggle={handleGiftsToggle}
+        onStarsToggle={handleStarsToggle}
+        onGroundToggle={handleGroundToggle}
+        onMoonSkyToggle={handleMoonSkyToggle}
       />
     </div>
   )

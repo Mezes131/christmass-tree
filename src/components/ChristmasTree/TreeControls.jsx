@@ -7,7 +7,10 @@ import {
   faWater,
   faForward, 
   faPowerOff,
-  faSnowflake
+  faSnowflake,
+  faGift,
+  faMoon,
+  faSquare
 } from '@fortawesome/free-solid-svg-icons'
 import '../../styles/controls.css'
 
@@ -36,7 +39,16 @@ function TreeControls({
   onSnowCountChange,
   onSnowSpeedChange,
   onSnowSizeChange,
-  onWindStrengthChange
+  onWindStrengthChange,
+  // Propriétés pour les décors
+  giftsEnabled = true,
+  starsEnabled = true,
+  groundEnabled = true,
+  moonSkyEnabled = true,
+  onGiftsToggle,
+  onStarsToggle,
+  onGroundToggle,
+  onMoonSkyToggle
 }) {
   const [isExpanded, setIsExpanded] = useState(true)
 
@@ -281,6 +293,60 @@ function TreeControls({
                 </div>
               </>
             )}
+          </div>
+
+          {/* Decorations Section */}
+          <div className="control-section">
+            <h3 className="control-title">Decorations</h3>
+            <div className="decor-checkboxes">
+              <label className="decor-checkbox">
+                <input
+                  type="checkbox"
+                  checked={giftsEnabled}
+                  onChange={onGiftsToggle}
+                />
+                <span className="checkbox-icon">
+                  <FontAwesomeIcon icon={faGift} />
+                </span>
+                <span className="checkbox-label">Gifts</span>
+              </label>
+              
+              <label className="decor-checkbox">
+                <input
+                  type="checkbox"
+                  checked={starsEnabled}
+                  onChange={onStarsToggle}
+                />
+                <span className="checkbox-icon">
+                  <FontAwesomeIcon icon={faStar} />
+                </span>
+                <span className="checkbox-label">Stars</span>
+              </label>
+              
+              <label className="decor-checkbox">
+                <input
+                  type="checkbox"
+                  checked={groundEnabled}
+                  onChange={onGroundToggle}
+                />
+                <span className="checkbox-icon">
+                  <FontAwesomeIcon icon={faSquare} />
+                </span>
+                <span className="checkbox-label">Ground</span>
+              </label>
+              
+              <label className="decor-checkbox">
+                <input
+                  type="checkbox"
+                  checked={moonSkyEnabled}
+                  onChange={onMoonSkyToggle}
+                />
+                <span className="checkbox-icon">
+                  <FontAwesomeIcon icon={faMoon} />
+                </span>
+                <span className="checkbox-label">Moon & Sky</span>
+              </label>
+            </div>
           </div>
         </div>
       )}

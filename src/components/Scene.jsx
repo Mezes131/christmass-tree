@@ -3,6 +3,7 @@ import { OrbitControls, PerspectiveCamera } from '@react-three/drei'
 import { Suspense } from 'react'
 import ChristmasTree from './ChristmasTree/ChristmasTree'
 import { SnowEffect } from './ChristmasTree/ChristmasTree'
+import DecorManager from './decor/DecorManager'
 import '../styles/lights.css'
 
 /**
@@ -23,7 +24,12 @@ function Scene({
   snowCount = 1000,
   snowSpeed = 1,
   snowSize = 0.02,
-  windStrength = 0.1
+  windStrength = 0.1,
+  // Propriétés pour les décors
+  giftsEnabled = true,
+  starsEnabled = true,
+  groundEnabled = true,
+  moonSkyEnabled = true
 }) {
   const handleOrnamentClick = (ornamentIndex) => {
     console.log(`Ornement ${ornamentIndex} cliqué!`)
@@ -96,6 +102,14 @@ function Scene({
           speed={snowSpeed}
           size={snowSize}
           windStrength={windStrength}
+        />
+        
+        {/* Décors de la scène */}
+        <DecorManager
+          giftsEnabled={giftsEnabled}
+          starsEnabled={starsEnabled}
+          groundEnabled={groundEnabled}
+          moonSkyEnabled={moonSkyEnabled}
         />
         
         {/* Contenu supplémentaire de la scène (lumières, effets, etc.) */}

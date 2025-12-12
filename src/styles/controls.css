@@ -358,3 +358,63 @@
   }
 }
 
+/* Checkboxes pour les décors */
+.decor-checkboxes {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.decor-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 13px;
+  color: #ffffff;
+}
+
+.decor-checkbox:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+  transform: translateX(4px);
+}
+
+.decor-checkbox input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  accent-color: #4a90e2;
+  margin: 0;
+}
+
+.decor-checkbox input[type="checkbox"]:checked + .checkbox-icon {
+  color: #4a90e2;
+}
+
+.decor-checkbox:has(input[type="checkbox"]:checked) {
+  background: rgba(74, 144, 226, 0.1);
+  border-color: rgba(74, 144, 226, 0.3);
+}
+
+.checkbox-icon {
+  font-size: 16px;
+  color: #888;
+  transition: color 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+}
+
+.checkbox-label {
+  font-weight: 500;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
