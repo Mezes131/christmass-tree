@@ -12,6 +12,7 @@ function Moon({
 }) {
   const meshRef = useRef()
   const glowRef = useRef()
+  const lightRef = useRef()
 
   // Animation de rotation très lente
   useFrame((state, delta) => {
@@ -25,10 +26,27 @@ function Moon({
       const pulse = Math.sin(time * 0.5) * 0.1 + 0.9
       glowRef.current.material.emissiveIntensity = glowIntensity * pulse
     }
+    
+    // Animation de la lumière (synchronisée avec la lueur)
+    if (lightRef.current) {
+      const time = state.clock.elapsedTime
+      const pulse = Math.sin(time * 0.5) * 0.1 + 0.9
+      lightRef.current.intensity = 1.2 * pulse
+    }
   })
 
   return (
     <group position={position}>
+      {/* PointLight depuis la lune */}
+      <pointLight
+        ref={lightRef}
+        color="#FFF8DC"
+        intensity={1.2}
+        distance={25}
+        decay={2}
+        castShadow={false}
+      />
+      
       {/* Lueur autour de la lune */}
       <mesh ref={glowRef}>
         <sphereGeometry args={[size * 1.3, 16, 16]} />
@@ -37,7 +55,7 @@ function Moon({
           emissive="#FFEAA7"
           emissiveIntensity={glowIntensity}
           transparent
-          opacity={0.3}
+          opacity={0.01}
           side={THREE.BackSide}
         />
       </mesh>
@@ -48,7 +66,7 @@ function Moon({
         <meshStandardMaterial
           color="#F0E68C"
           emissive="#FFEAA7"
-          emissiveIntensity={0.3}
+          emissiveIntensity={0.93}
           roughness={0.8}
           metalness={0.1}
         />
@@ -57,7 +75,7 @@ function Moon({
       {/* Cratères (détails) - mémorisés pour performance */}
       {useMemo(() => {
         const craters = []
-        for (let i = 0; i < 5; i++) {
+        for (let i = 0; i < 16; i++) {
           const angle = (i / 5) * Math.PI * 2
           // eslint-disable-next-line react-hooks/purity
           const distance = size * (0.3 + Math.random() * 0.4)
@@ -89,7 +107,7 @@ function MoonSky({
   enabled = true,
   moonPosition = [8, 8, -10],
   moonSize = 1.5,
-  moonGlowIntensity = 0.5
+  moonGlowIntensity = 1.5
 }) {
   if (!enabled) {
     return null
