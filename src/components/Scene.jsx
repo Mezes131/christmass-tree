@@ -4,6 +4,7 @@ import { Suspense } from 'react'
 import ChristmasTree from './ChristmasTree/ChristmasTree'
 import { SnowEffect } from './ChristmasTree/ChristmasTree'
 import DecorManager from './decor/DecorManager'
+import LoadingTracker from './LoadingTracker'
 import '../styles/lights.css'
 
 /**
@@ -32,7 +33,9 @@ function Scene({
   groundEnabled = true,
   moonSkyEnabled = true,
   // Mode plein écran
-  isFullscreen = false
+  isFullscreen = false,
+  // Callback pour notifier quand le chargement est terminé
+  onLoaded = null
 }) {
   const handleOrnamentClick = (ornamentIndex) => {
     console.log(`Ornement ${ornamentIndex} cliqué!`)
@@ -51,6 +54,7 @@ function Scene({
           background: 'linear-gradient(to bottom, #0a0a1a 0%, #1a1a2e 100%)'
         }}
       >
+      <LoadingTracker onLoaded={onLoaded} />
       <Suspense fallback={null}>
         {/* Caméra avec position personnalisable */}
         <PerspectiveCamera

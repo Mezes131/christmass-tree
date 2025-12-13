@@ -7,9 +7,12 @@ import Footer from './components/Footer'
 import './App.css'
 import './styles/tree.css'
 import './styles/decor.css'
+import './styles/Loader.css'
+import Loader from './components/Loader'
 
 function App() {
   const [isLoaded, setIsLoaded] = useState(false)
+  const [showLoader, setShowLoader] = useState(true)
   const [isFullscreen, setIsFullscreen] = useState(false)
   const [isSidePanelExpanded, setIsSidePanelExpanded] = useState(false)
   const [lightsOn, setLightsOn] = useState(true)
@@ -94,14 +97,14 @@ function App() {
     setMoonSkyEnabled(!moonSkyEnabled)
   }
 
-  // Gestion du chargement
-  useEffect(() => {
-    // Utiliser un callback pour éviter l'avertissement
-    const timer = setTimeout(() => {
+  // Gestion du chargement - sera mis à jour par le LoadingTracker
+  const handleSceneLoaded = () => {
+    setShowLoader(false)
+    // Petit délai avant de masquer complètement le loader
+    setTimeout(() => {
       setIsLoaded(true)
-    }, 0)
-    return () => clearTimeout(timer)
-  }, [])
+    }, 500)
+  }
 
   // Gestion du fullscreen
   const handleFullscreen = () => {
@@ -144,6 +147,7 @@ function App() {
 
   return (
     <div className={`app-container ${isFullscreen ? 'fullscreen' : ''}`}>
+      {showLoader && <Loader />}
       <NavBar isLoaded={isLoaded} />
       
       <div className="main-content">
@@ -164,6 +168,7 @@ function App() {
           groundEnabled={groundEnabled}
           moonSkyEnabled={moonSkyEnabled}
           isFullscreen={isFullscreen}
+          onLoaded={handleSceneLoaded}
         >
           {/* Le sapin de Noël et les autres éléments seront ajoutés ici */}
         </Scene>
