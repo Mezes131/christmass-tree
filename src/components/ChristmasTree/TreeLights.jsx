@@ -2,6 +2,7 @@ import { useRef, useMemo } from 'react'
 import { useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
 import { useLightAnimation } from '../../hooks/useThreeScene'
+import Garland from './Garland'
 
 /**
  * Composant LightBulb - Une ampoule individuelle de la guirlande
@@ -160,6 +161,14 @@ function TreeLights({
 
   return (
     <group>
+      {/* Fil de guirlande reliant les ampoules */}
+      <Garland
+        treeHeight={treeHeight}
+        treeRadius={treeRadius}
+        isOn={isOn}
+      />
+      
+      {/* Ampoules de la guirlande */}
       {lightPositions.map((light, index) => (
         <LightBulb
           key={`light-${index}`}
