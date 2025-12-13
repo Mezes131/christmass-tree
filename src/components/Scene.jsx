@@ -1,10 +1,11 @@
 import { Canvas } from '@react-three/fiber'
 import { OrbitControls, PerspectiveCamera } from '@react-three/drei'
-import { Suspense } from 'react'
+import { Suspense, useRef, useState, useEffect } from 'react'
 import ChristmasTree from './ChristmasTree/ChristmasTree'
 import { SnowEffect } from './ChristmasTree/ChristmasTree'
 import DecorManager from './decor/DecorManager'
 import LoadingTracker from './LoadingTracker'
+import Header from './Header'
 import '../styles/lights.css'
 
 /**
@@ -35,16 +36,30 @@ function Scene({
   // Mode plein écran
   isFullscreen = false,
   // Callback pour notifier quand le chargement est terminé
-  onLoaded = null
+  onLoaded = null,
+  // État de chargement pour le Header
+  isLoaded = false
 }) {
+  const sceneWrapperRef = useRef(null)
+  const [canvasContainer, setCanvasContainer] = useState(null)
+
+  // Mettre à jour le conteneur du canvas quand le ref est disponible
+  useEffect(() => {
+    if (sceneWrapperRef.current) {
+      setCanvasContainer(sceneWrapperRef.current)
+    }
+  }, [])
+
   const handleOrnamentClick = (ornamentIndex) => {
     console.log(`Ornement ${ornamentIndex} cliqué!`)
   }
 
   return (
     <div
+      ref={sceneWrapperRef}
       className={`scene-wrapper ${isFullscreen ? 'fullscreen' : 'reduced'}`}
     >
+      <Header isLoaded={isLoaded} canvasContainer={canvasContainer} />
       <Canvas
         shadows
         gl={{ antialias: true, alpha: true }}

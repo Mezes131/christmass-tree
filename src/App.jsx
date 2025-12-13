@@ -169,6 +169,7 @@ function App() {
           moonSkyEnabled={moonSkyEnabled}
           isFullscreen={isFullscreen}
           onLoaded={handleSceneLoaded}
+          isLoaded={isLoaded}
         >
           {/* Le sapin de Noël et les autres éléments seront ajoutés ici */}
         </Scene>
