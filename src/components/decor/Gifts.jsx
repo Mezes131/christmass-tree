@@ -1,4 +1,4 @@
-import { useRef, useMemo, useState } from 'react'
+import { useRef, useMemo, useState, useEffect } from 'react'
 import { useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
 
@@ -131,7 +131,7 @@ function Gift({
   const RESTITUTION = 0.6 // Coefficient de restitution (rebond)
   const MAX_BOUNCES = 5 // Nombre maximum de rebonds
   const halfHeight = size[1] / 2
-  const initialY = useMemo(() => GROUND_LEVEL + halfHeight, [halfHeight]) // Position initiale sur le sol
+  const initialY = useMemo(() => GROUND_LEVEL + halfHeight, [halfHeight, GROUND_LEVEL]) // Position initiale sur le sol
 
   // État pour l'animation de rebond vertical
   const [isBouncing, setIsBouncing] = useState(false)
@@ -149,7 +149,7 @@ function Gift({
   })
 
   // Initialiser la position Y sur le sol au montage
-  useMemo(() => {
+  useEffect(() => {
     physicsRef.current.positionY = initialY
     if (groupRef.current) {
       groupRef.current.position.y = initialY
@@ -263,11 +263,13 @@ function Gift({
   const bowHeight = size[1] * 0.15
 
   // Initialiser la position Y sur le sol
+  const positionX = position[0]
+  const positionZ = position[2]
   const initialPosition = useMemo(() => [
-    position[0],
+    positionX,
     initialY,
-    position[2]
-  ], [position[0], position[2], initialY])
+    positionZ
+  ], [positionX, positionZ, initialY])
 
   return (
     <group 
