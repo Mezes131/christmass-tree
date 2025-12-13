@@ -55,7 +55,7 @@ function Moon({
           emissive="#FFEAA7"
           emissiveIntensity={glowIntensity}
           transparent
-          opacity={0.01}
+          opacity={0.06}
           side={THREE.BackSide}
         />
       </mesh>
